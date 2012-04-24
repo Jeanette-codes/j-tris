@@ -12,18 +12,16 @@ var tetris = {
       return randColor;
    },
 
-   /*playBoard : function(){
-     for (var i = 0; i <= 17; i++) {
-     for (var j = 0; j <= 9; j++) {
-     play_key = 'r'+i+'c'+j;
-     playBoard[play_key] = 0;
-     }
-     }
-     },*/
-
-   ///////////////pieces.piecename[rotate][row][col]
    pieces : {
       o : [
+         [[0,0,0,0,1,1,0,0,0,0],
+          [0,0,0,0,1,1,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]],
+         [[0,0,0,0,1,1,0,0,0,0],
+          [0,0,0,0,1,1,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]]
          [[0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -43,9 +41,25 @@ var tetris = {
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,1,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0]],
+         [[0,0,0,0,1,0,0,0,0,0],
+          [0,0,0,1,1,1,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]],
+         [[0,0,0,0,1,0,0,0,0,0],
+          [0,0,0,0,1,1,0,0,0,0],
+          [0,0,0,0,1,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]],
       ],  
 
       i : [
+         [[0,0,0,1,1,1,1,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]],
+         [[0,0,0,0,1,0,0,0,0,0],
+          [0,0,0,0,1,0,0,0,0,0],
+          [0,0,0,0,1,0,0,0,0,0],
+          [0,0,0,0,1,0,0,0,0,0]]
          [[0,0,0,1,1,1,1,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -65,9 +79,25 @@ var tetris = {
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,1,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0]]
+         [[0,0,0,0,1,1,0,0,0,0],
+          [0,0,0,0,0,1,1,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]],
+         [[0,0,0,0,0,1,0,0,0,0],
+          [0,0,0,0,1,1,0,0,0,0],
+          [0,0,0,0,1,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]]
       ],
 
       s : [
+         [[0,0,0,0,1,1,0,0,0,0],
+          [0,0,0,1,1,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]],
+         [[0,0,0,0,1,0,0,0,0,0],
+          [0,0,0,0,1,1,0,0,0,0],
+          [0,0,0,0,0,1,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]]
          [[0,0,0,0,1,1,0,0,0,0],
           [0,0,0,1,1,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -138,19 +168,20 @@ var tetris = {
        [0,0,0,0,0,0,0,0,0,0]],
 
    init : function(){
-      var waiting = this.createPiece();
-      var inPlay = this.createPiece();
-      this.loadNext(waiting);
-      this.loadBoard(inPlay);
-      inPlay = waiting;
-      window.setInterval(this.gameLoop, 1000);
+      this.waitingPiece = this.createPiece();
+      this.playPiece = this.createPiece();
+      this.renderWaiting(this.waitingPiece);
+      this.loadBoard(this.board, this.playPiece);
+      this.render(this.board, this.playPiece);
+      var that = this;
+      //window.setInterval($.proxy(this.gameLoop, this), 1000); //makes setInterval scope the same as tetris object
+      this.gameLoop();
    },
 
    gameLoop : function() {
-      //load from waiting
-      //check hit
-      //drop down 1 
-      //check hit
+      this.moveDown(this.board, this.playPiece);
+
+      //have static board and dynamic board(just board) that check against eachother
    },
 
    createPiece : function(){
@@ -168,14 +199,45 @@ var tetris = {
       return piece;
    },
 
-   loadNext : function(upcomingPiece){
+   moveDown : function(){
+      console.log('moveDown--------------');
+      console.log(this.playPiece.name);
+      console.log(this.playPiece[3]);
+      var space = [0,0,0,0,0,0,0,0,0,0];
+      console.log('before: ' + typeof(this.playPiece));
+      for (var i = 0; i < 4; i++) {
+         this.playPiece[i] = this.playPiece[i].unshift(space);
+      }
+      console.log('after: ' + typeof(this.playPiece));
+      //this.loadBoard(this.board, this.playPiece);
+      //this.render(this.board, this.playPiece);
+   },
+
+   moveLeft : function(){
+   },
+
+   moveRight : function(){
+   },
+
+   loadBoard : function(board, piece){
+      console.log(this.playPiece.name);
+      console.log(this.playPiece[0].length);
+      for (var y = 0; y < piece[0].length; y++) {
+         for ( var x = 0; x < 10; x++) {
+            board[y][x] = piece[0][y][x];
+         }
+      }
+      this.board = board;
+   },
+
+   renderWaiting : function(piece){
       var x = 0;
       var y = 0;
-      $('.piece_name').text(upcomingPiece.name);
-      $('.piece_color').text(upcomingPiece.color);
+      $('.piece_name').text(piece.name);
+      $('.piece_color').text(piece.color);
       $('.onDeck_board .block').each(function(){
-         if (upcomingPiece[0][x][y] == 1){
-            $(this).css('backgroundColor', '#'+upcomingPiece.color);
+         if (piece[0][x][y] == 1){
+            $(this).css('backgroundColor', '#'+piece.color);
          }
          if (y == 9) {
             x++;
@@ -186,14 +248,21 @@ var tetris = {
       });
    },
 
-   loadBoard : function(insertPiece){
-      $('.play_board .block').each(function(){
-         $(this).text('0');    
-      });   
+   render : function(board, piece){
+      var boardConcat = jQuery.map(board, function(a){
+         return a;
+      });
+      $('.play_board .block').each(function(index){
+         if (boardConcat[index] == 1){
+            $(this).css('backgroundColor', '#'+piece.color);
+         }
+         $(this).html(boardConcat[index]);
+      });
    }
 } // end of object
 
 $(document).ready(function(){
+   //board is 9x17 starting from 0
 
    Array.prototype.shuffle = function() {
       var s = [];
