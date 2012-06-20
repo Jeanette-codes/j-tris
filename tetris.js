@@ -21,7 +21,7 @@ var tetris = {
          [[0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0]]
+          [0,0,0,0,0,0,0,0,0,0]],
          [[0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -59,7 +59,7 @@ var tetris = {
          [[0,0,0,0,1,0,0,0,0,0],
           [0,0,0,0,1,0,0,0,0,0],
           [0,0,0,0,1,0,0,0,0,0],
-          [0,0,0,0,1,0,0,0,0,0]]
+          [0,0,0,0,1,0,0,0,0,0]],
          [[0,0,0,1,1,1,1,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -78,7 +78,7 @@ var tetris = {
          [[0,0,0,0,0,1,0,0,0,0],
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,1,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0]]
+          [0,0,0,0,0,0,0,0,0,0]],
          [[0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,0,1,1,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -97,7 +97,7 @@ var tetris = {
          [[0,0,0,0,1,0,0,0,0,0],
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,0,1,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0]]
+          [0,0,0,0,0,0,0,0,0,0]],
          [[0,0,0,0,1,1,0,0,0,0],
           [0,0,0,1,1,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -147,35 +147,90 @@ var tetris = {
       ],									
    },
 
-   board : 
-      [[0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0],
-       [0,0,0,0,0,0,0,0,0,0]],
+   board : [ 
+         [[0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]],
+         [[0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]],
+         [[0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]],
+         [[0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]],
+      ],
 
    init : function(){
       this.waitingPiece = this.createPiece();
       this.playPiece = this.createPiece();
       this.renderWaiting(this.waitingPiece);
-      this.loadBoard(this.board, this.playPiece);
-      this.render(this.board, this.playPiece);
+      this.loadBoard(this.board);
+      this.render();
       var that = this;
-      //window.setInterval($.proxy(this.gameLoop, this), 1000); //makes setInterval scope the same as tetris object
-      this.gameLoop();
+      window.setInterval($.proxy(this.gameLoop, this), 1000); //makes setInterval scope the same as tetris object
+      //this.gameLoop();
    },
 
    gameLoop : function() {
@@ -201,16 +256,13 @@ var tetris = {
 
    moveDown : function(){
       console.log('moveDown--------------');
-      console.log(this.playPiece.name);
-      console.log(this.playPiece[3]);
-      var space = [0,0,0,0,0,0,0,0,0,0];
-      console.log('before: ' + typeof(this.playPiece));
+      var space = [[0,0,0,0,0,0,0,0,0,0]];
       for (var i = 0; i < 4; i++) {
-         this.playPiece[i] = this.playPiece[i].unshift(space);
+         this.board[i].unshift.apply(this.board[i], space);
+         this.board[i].pop();
       }
-      console.log('after: ' + typeof(this.playPiece));
-      //this.loadBoard(this.board, this.playPiece);
-      //this.render(this.board, this.playPiece);
+      console.log(this.playPiece[0]);
+      this.render();
    },
 
    moveLeft : function(){
@@ -219,15 +271,18 @@ var tetris = {
    moveRight : function(){
    },
 
-   loadBoard : function(board, piece){
+   loadBoard : function(board){
       console.log(this.playPiece.name);
-      console.log(this.playPiece[0].length);
-      for (var y = 0; y < piece[0].length; y++) {
+      console.log(this.playPiece.length);
+      for (var y = 0; y < this.playPiece[0].length; y++) {
          for ( var x = 0; x < 10; x++) {
-            board[y][x] = piece[0][y][x];
+            for ( var z = 0; z < 4; z++) {
+               this.board[z][y][x] = this.playPiece[z][y][x];
+            }
          }
       }
-      this.board = board;
+      this.board.color = this.playPiece.color;
+      this.render();
    },
 
    renderWaiting : function(piece){
@@ -248,14 +303,18 @@ var tetris = {
       });
    },
 
-   render : function(board, piece){
-      var boardConcat = jQuery.map(board, function(a){
+   render : function(){
+      var boardConcat = jQuery.map(this.board[0], function(a){
          return a;
       });
+      var that = this;
       $('.play_board .block').each(function(index){
          if (boardConcat[index] == 1){
-            $(this).css('backgroundColor', '#'+piece.color);
+            $(this).css('backgroundColor', '#' + that.playPiece.color);
+         } else {
+            $(this).css('backgroundColor', '#aaa');
          }
+
          $(this).html(boardConcat[index]);
       });
    }
@@ -263,6 +322,9 @@ var tetris = {
 
 $(document).ready(function(){
    //board is 9x17 starting from 0
+   //when playpiece gets put on the board we move the board as if it was piece... I think that's ok.
+   //Going to come up with some kind of shadow board for all the pieces that have dropped already. 
+   //maybe call it droppedBoard
 
    Array.prototype.shuffle = function() {
       var s = [];
