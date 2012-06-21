@@ -226,16 +226,19 @@ var tetris = {
       this.waitingPiece = this.createPiece();
       this.playPiece = this.createPiece();
       this.renderWaiting(this.waitingPiece);
-      this.loadBoard(this.board);
+      this.loadBoard();
       this.render();
       var that = this;
-      window.setInterval($.proxy(this.gameLoop, this), 1000); //makes setInterval scope the same as tetris object
-      //this.gameLoop();
+      //window.setInterval($.proxy(this.gameLoop, this), 1000); //makes setInterval scope the same as tetris object
+      this.gameLoop(); // just for testing purposes.
    },
 
    gameLoop : function() {
-      this.moveDown(this.board, this.playPiece);
-
+      if (this.collisionTest() === false){
+         this.moveDown();
+      } else {
+         console.log('game over man');
+      }
       //have static board and dynamic board(just board) that check against eachother
    },
 
@@ -256,13 +259,14 @@ var tetris = {
 
    moveDown : function(){
       console.log('moveDown--------------');
-      var space = [[0,0,0,0,0,0,0,0,0,0]];
-      for (var i = 0; i < 4; i++) {
-         this.board[i].unshift.apply(this.board[i], space);
-         this.board[i].pop();
+      if (this.collisionTest() == false){
+         var space = [[0,0,0,0,0,0,0,0,0,0]];
+         for (var i = 0; i < 4; i++) {
+            this.playPiece[i].unshift.apply(this.playPiece[i], space);
+            //this.playPiece[i].pop();
+         }
+         this.render();
       }
-      console.log(this.playPiece[0]);
-      this.render();
    },
 
    moveLeft : function(){
@@ -271,28 +275,44 @@ var tetris = {
    moveRight : function(){
    },
 
-   loadBoard : function(board){
-      console.log(this.playPiece.name);
-      console.log(this.playPiece.length);
-      for (var y = 0; y < this.playPiece[0].length; y++) {
-         for ( var x = 0; x < 10; x++) {
-            for ( var z = 0; z < 4; z++) {
-               this.board[z][y][x] = this.playPiece[z][y][x];
+   //check every place with a 1 against certain conditions
+   collisionTest : function(){
+      var pieceLength = this.playPiece[0].length - 1;
+      var pieceEnd = pieceLength - 4; 
+      var counter = 0;
+      var coords = [];
+
+      //checks last 4 rows and puts coordinates of piece in an array
+      //coords are currently messed up, need a new way to do this.
+      //maybe concat the array and check against the board array.
+      for (var y = pieceLength; y > pieceEnd; y--) {
+         for (var x = 0; x < 10; x++) {
+            if (this.playPiece[0][y][x] == 1) {
+               coords.push(x, y); //coords are from top to bottom and left to right
             }
          }
       }
-      this.board.color = this.playPiece.color;
-      this.render();
+      console.log(coords);
+      return false;
+      
    },
 
-   renderWaiting : function(piece){
+   loadBoard : function(){
+      //var newPiece = [];
+      //jQuery.extend(true, newPiece, this.board, this.playPiece);
+      //this.playPiece = newPiece;
+      //this.render();
+   },
+
+   renderWaiting : function(){
       var x = 0;
       var y = 0;
-      $('.piece_name').text(piece.name);
-      $('.piece_color').text(piece.color);
+      $('.piece_name').text(this.waitingPiece.name);
+      $('.piece_color').text(this.waitingPiece.color);
+      var that = this;
       $('.onDeck_board .block').each(function(){
-         if (piece[0][x][y] == 1){
-            $(this).css('backgroundColor', '#'+piece.color);
+         if (that.waitingPiece[0][x][y] == 1){
+            $(this).css('backgroundColor', '#'+ that.waitingPiece.color);
          }
          if (y == 9) {
             x++;
@@ -304,7 +324,7 @@ var tetris = {
    },
 
    render : function(){
-      var boardConcat = jQuery.map(this.board[0], function(a){
+      var boardConcat = jQuery.map(this.playPiece[0], function(a){
          return a;
       });
       var that = this;
@@ -322,9 +342,6 @@ var tetris = {
 
 $(document).ready(function(){
    //board is 9x17 starting from 0
-   //when playpiece gets put on the board we move the board as if it was piece... I think that's ok.
-   //Going to come up with some kind of shadow board for all the pieces that have dropped already. 
-   //maybe call it droppedBoard
 
    Array.prototype.shuffle = function() {
       var s = [];
