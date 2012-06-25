@@ -148,78 +148,24 @@ var tetris = {
    },
 
    board : [ 
-         [[0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0]],
-         [[0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0]],
-         [[0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0]],
-         [[0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0]],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0,0],
       ],
 
    init : function(){
@@ -229,15 +175,15 @@ var tetris = {
       this.loadBoard();
       this.render();
       var that = this;
-      //window.setInterval($.proxy(this.gameLoop, this), 1000); //makes setInterval scope the same as tetris object
-      this.gameLoop(); // just for testing purposes.
+      this.time = window.setInterval($.proxy(this.gameLoop, this), 1000); //makes setInterval scope the same as tetris object
+      //this.gameLoop(); // just for testing purposes.
    },
 
-   gameLoop : function() {
+   gameLoop : function(){
       if (this.collisionTest() === false){
          this.moveDown();
       } else {
-         console.log('game over man');
+         this.gameOver();
       }
       //have static board and dynamic board(just board) that check against eachother
    },
@@ -257,16 +203,19 @@ var tetris = {
       return piece;
    },
 
+   gameOver : function() { 
+      window.clearInterval(this.time);
+      console.log('game over man');
+   },
+
    moveDown : function(){
       console.log('moveDown--------------');
-      if (this.collisionTest() == false){
-         var space = [[0,0,0,0,0,0,0,0,0,0]];
-         for (var i = 0; i < 4; i++) {
-            this.playPiece[i].unshift.apply(this.playPiece[i], space);
-            //this.playPiece[i].pop();
-         }
-         this.render();
+      var space = [[0,0,0,0,0,0,0,0,0,0]];
+      for (var i = 0; i < 4; i++) {
+         this.playPiece[i].unshift.apply(this.playPiece[i], space);
+         //this.playPiece[i].pop();
       }
+      this.render();
    },
 
    moveLeft : function(){
@@ -282,9 +231,7 @@ var tetris = {
       var counter = 0;
       var coords = [];
 
-      //checks last 4 rows and puts coordinates of piece in an array
-      //coords are currently messed up, need a new way to do this.
-      //maybe concat the array and check against the board array.
+      //builds array for piece coordinates
       for (var y = pieceLength; y > pieceEnd; y--) {
          for (var x = 0; x < 10; x++) {
             if (this.playPiece[0][y][x] == 1) {
@@ -292,8 +239,17 @@ var tetris = {
             }
          }
       }
-      console.log(coords);
-      return false;
+      for (var c = 1; c < 8; c = c + 2) {
+         if (coords[c] === 17) {
+            return true;
+         } else {
+            return false;
+         }
+         console.log(coords[c]);
+      } 
+   },
+
+   touchDown : function(){
       
    },
 
