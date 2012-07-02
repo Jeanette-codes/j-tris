@@ -13,7 +13,8 @@ var tetris = {
    },
 
    pieces : {
-      o : [
+      o : function() {
+         return [
          [[0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -30,9 +31,11 @@ var tetris = {
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0]]
-         ],	 
+         ];	 
+      },
 
-      t : [
+      t : function() {
+         return [
          [[0,0,0,0,1,0,0,0,0,0],
           [0,0,0,1,1,1,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -49,9 +52,11 @@ var tetris = {
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,1,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0]],
-      ],  
+         ];  
+      },
 
-      i : [
+      i : function() {
+         return [
          [[0,0,0,1,1,1,1,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -68,9 +73,11 @@ var tetris = {
           [0,0,0,0,1,0,0,0,0,0],
           [0,0,0,0,1,0,0,0,0,0],
           [0,0,0,0,1,0,0,0,0,0]]
-         ],
+         ];
+      },
 
-      z : [
+      z : function() {
+         return [
          [[0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,0,1,1,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -87,9 +94,11 @@ var tetris = {
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,1,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0]]
-      ],
+         ];
+      },
 
-      s : [
+      s : function() { 
+         return [
          [[0,0,0,0,1,1,0,0,0,0],
           [0,0,0,1,1,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
@@ -106,9 +115,11 @@ var tetris = {
           [0,0,0,0,1,1,0,0,0,0],
           [0,0,0,0,0,1,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0]]
-      ],									
+         ];									
+      },
 
-      l : [
+      l : function() {
+         return [
          [[0,0,0,0,1,0,0,0,0,0],
           [0,0,0,0,1,0,0,0,0,0],
           [0,0,0,0,1,1,0,0,0,0],
@@ -125,9 +136,11 @@ var tetris = {
           [0,0,0,1,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0]]
-      ],									
+         ];									
+      },
 
-      j : [
+      j : function() {
+         return [
          [[0,0,0,0,0,1,0,0,0,0],
           [0,0,0,0,0,1,0,0,0,0],
           [0,0,0,0,1,1,0,0,0,0],
@@ -144,61 +157,74 @@ var tetris = {
           [0,0,0,1,1,1,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0,0]]
-      ],									
+         ];									
+      }
    },
 
-   board : [ 
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0,0],
-      ],
+   board : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
+         //[0,0,0,0,0,0,0,0,0,0],
 
    init : function(){
       this.waitingPiece = this.createPiece();
       this.playPiece = this.createPiece();
       this.renderWaiting(this.waitingPiece);
-      this.loadBoard();
       this.render();
       var that = this;
-      this.time = window.setInterval($.proxy(this.gameLoop, this), 1000); //makes setInterval scope the same as tetris object
-      //this.gameLoop(); // just for testing purposes.
+
+      //makes setInterval scope the same as tetris object
+      this.time = window.setInterval($.proxy(this.gameLoop, this), 500);    
    },
 
    gameLoop : function(){
+      var that = this;
+      document.onkeydown = function(e) {
+         if (that.collisionTest() === false){
+            if (e.keyCode === 37) {
+               that.moveLeft();
+            }
+            if (e.keyCode === 39) {
+               that.moveRight();
+            }
+         } else {
+            console.log('wall hit');
+         }
+      }
       if (this.collisionTest() === false){
          this.moveDown();
       } else {
-         this.gameOver();
+         this.touchDown();
       }
-      //have static board and dynamic board(just board) that check against eachother
    },
 
+   //returns random piece with a name and color attached to it.
    createPiece : function(){
-      var allPieces = [];
-      var onDeck;
-      var piece;
-      $.each(tetris.pieces, function(key, value) {  //puts pieces into an array ready to be shuffled
-         allPieces.push(key);
-      });
+      var allPieces = ['o','t','i','z','s','l','j'];
+      var piece = {};
+
       allPieces.shuffle();
-      onDeck = allPieces[0];  //sets name of piece to onDeck
-      piece = tetris.pieces[onDeck];
-      piece.name = onDeck[0];
+      var select = allPieces[0][0];
+
+      //sets name of piece to onDeck
+      piece = tetris.pieces[select]();
+      piece.name = select;
       piece.color = tetris.randomColor();	
       return piece;
    },
@@ -213,15 +239,40 @@ var tetris = {
       var space = [[0,0,0,0,0,0,0,0,0,0]];
       for (var i = 0; i < 4; i++) {
          this.playPiece[i].unshift.apply(this.playPiece[i], space);
-         //this.playPiece[i].pop();
       }
       this.render();
    },
 
    moveLeft : function(){
+      console.log('move left');
+      var pieceLength = this.playPiece[0].length - 1;
+      var pieceEnd = pieceLength - 4; 
+
+      //moves array over to left one
+      for (var y = pieceLength; y > pieceEnd; y--) {
+         for (var x = 0; x < 10; x++) {
+            if (this.playPiece[0][y][x] == 1) {
+               this.playPiece[0][y][x-1] = 1;
+               this.playPiece[0][y][x] = 0;
+            }
+         }
+      }
    },
 
    moveRight : function(){
+      console.log('move right');
+      var pieceLength = this.playPiece[0].length - 1;
+      var pieceEnd = pieceLength - 4; 
+
+      //moves array over to left one
+      for (var y = pieceLength; y > pieceEnd; y--) {
+         for (var x = 0; x < 10; x++) {
+            if (this.playPiece[0][y][x] == 1) {
+               this.playPiece[0][y][x + 1] = 1;
+               this.playPiece[0][y][x] = 0;
+            }
+         }
+      }
    },
 
    //check every place with a 1 against certain conditions
@@ -236,62 +287,108 @@ var tetris = {
          for (var x = 0; x < 10; x++) {
             if (this.playPiece[0][y][x] == 1) {
                coords.push(x, y); //coords are from top to bottom and left to right
+
+               // if piece hits another piece
+               // TODO figure math out for this board piece collision
+               if (y === 0) {
+                  if (this.board[9 + x] === 1) {
+                     console.log('piece collision');
+                     return true;
+                  }
+               }
+               else {
+                  if (this.board[10 * (y + 1) + x ] === 1) {
+                     console.log('piece collision');
+                     return true;
+                  }
+               }
             }
          }
       }
+
+      // if piece hits bottom return true
       for (var c = 1; c < 8; c = c + 2) {
          if (coords[c] === 17) {
             return true;
          } else {
             return false;
          }
-         console.log(coords[c]);
       } 
    },
 
+   //fires when piece hits bottom or another piece
    touchDown : function(){
-      
+      console.log('touchdown'); 
+      this.loadBoard();
+      this.playPiece = this.waitingPiece;
+      this.waitingPiece = this.createPiece();
+      this.render();
+      this.renderWaiting();
    },
 
+   // moves piece array into board array on touchdown
    loadBoard : function(){
-      //var newPiece = [];
-      //jQuery.extend(true, newPiece, this.board, this.playPiece);
-      //this.playPiece = newPiece;
-      //this.render();
+      var length = this.playPiece[0].length - 1;
+      var flatPiece = [];
+
+      // makes single array out of piece
+      for (var i = 0; i < length; i++) {
+         flatPiece = flatPiece.concat(this.playPiece[0][i]);
+      }
+
+      // makes length of piece equal board
+      flatPiece = flatPiece.slice(0, 180);
+
+      // stores piece position in board
+      for (var i = 0; i < 180; i++) {
+         if (this.board[i] === 1 && flatPiece[i] === 1) {
+            console.log('overlapping piece detected abort!');
+            console.log('index of overlap: ', i);
+            this.gameOver();
+            return;
+         }
+         if (this.board[i] === 0 && flatPiece[i] === 1) {
+            this.board[i] = 1;
+         }
+      }
    },
 
    renderWaiting : function(){
-      var x = 0;
-      var y = 0;
+      // TODO redo this so that the color doesn't go away from the last piece
+      var pieceConcat = jQuery.map(this.waitingPiece[0], function(a){
+         return a;
+      });
       $('.piece_name').text(this.waitingPiece.name);
       $('.piece_color').text(this.waitingPiece.color);
+
       var that = this;
-      $('.onDeck_board .block').each(function(){
-         if (that.waitingPiece[0][x][y] == 1){
+      $('.onDeck_board .block').each(function(index){
+         if (pieceConcat[index] === 1){
             $(this).css('backgroundColor', '#'+ that.waitingPiece.color);
-         }
-         if (y == 9) {
-            x++;
-            y = 0;
          } else {
-            y++;
+            $(this).css('backgroundColor', '#aaa');
          }
       });
    },
 
    render : function(){
-      var boardConcat = jQuery.map(this.playPiece[0], function(a){
+      var pieceConcat = jQuery.map(this.playPiece[0], function(a){
          return a;
       });
+      var board = this.board;
       var that = this;
+
       $('.play_board .block').each(function(index){
-         if (boardConcat[index] == 1){
+         if (board[index] == 1){
+            return;
+         } 
+         if (pieceConcat[index] == 1){
             $(this).css('backgroundColor', '#' + that.playPiece.color);
-         } else {
+         } 
+         if (board[index] === 0 && pieceConcat[index] === 0) {
             $(this).css('backgroundColor', '#aaa');
          }
-
-         $(this).html(boardConcat[index]);
+         $(this).html(pieceConcat[index]);
       });
    }
 } // end of object
