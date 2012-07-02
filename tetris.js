@@ -185,9 +185,13 @@ var tetris = {
    init : function(){
       this.waitingPiece = this.createPiece();
       this.playPiece = this.createPiece();
-      this.renderWaiting(this.waitingPiece);
+      this.renderWaiting();
       this.render();
       var that = this;
+      //console.log(this.pieces.z()[0]);
+      //console.log(this.createPiece()[0]);
+      //console.log(this.playPiece[0]);
+
 
       //makes setInterval scope the same as tetris object
       this.time = window.setInterval($.proxy(this.gameLoop, this), 500);    
@@ -196,11 +200,13 @@ var tetris = {
    gameLoop : function(){
       var that = this;
       document.onkeydown = function(e) {
-         if (that.collisionTest() === false){
+         if (that.wallHit() === false){
             if (e.keyCode === 37) {
+               console.log('move left :',that.playPiece[0]);
                that.moveLeft();
             }
             if (e.keyCode === 39) {
+               console.log(that.playPiece[0]);
                that.moveRight();
             }
          } else {
@@ -252,7 +258,7 @@ var tetris = {
       for (var y = pieceLength; y > pieceEnd; y--) {
          for (var x = 0; x < 10; x++) {
             if (this.playPiece[0][y][x] == 1) {
-               this.playPiece[0][y][x-1] = 1;
+               this.playPiece[0][y][x - 1] = 1;
                this.playPiece[0][y][x] = 0;
             }
          }
@@ -263,16 +269,32 @@ var tetris = {
       console.log('move right');
       var pieceLength = this.playPiece[0].length - 1;
       var pieceEnd = pieceLength - 4; 
+      var nX;
 
-      //moves array over to left one
-      for (var y = pieceLength; y > pieceEnd; y--) {
-         for (var x = 0; x < 10; x++) {
-            if (this.playPiece[0][y][x] == 1) {
-               this.playPiece[0][y][x + 1] = 1;
+      //moves array over to right one
+      for (var y = pieceLength; y >= pieceEnd; y--) {
+         for (var x = 10; x >= 0; x--) {
+            if (this.playPiece[0][y][x] === 1) {
                this.playPiece[0][y][x] = 0;
+               this.playPiece[0][y][x + 1] = 1;
             }
          }
       }
+   },
+
+   coords : function() {
+      var coords = [];
+      var pieceLength = this.playPiece[0].length - 1;
+      var pieceEnd = pieceLength - 4; 
+
+      for (var y = pieceLength; y > pieceEnd; y--) {
+         for (var x = 0; x < 10; x++) {
+            if (this.playPiece[0][y][x] == 1) {
+               coords.push(x, y); //coords are from top to bottom and left to right
+            }
+         }
+      }
+      return coords;
    },
 
    //check every place with a 1 against certain conditions
@@ -316,6 +338,18 @@ var tetris = {
       } 
    },
 
+   wallHit : function() {
+      var coords = this.coords();
+      for (var c = 0; c <= 8; c = c + 2) {
+         if (coords[c] === 0 || coords[c] === 8) {
+            return true;
+         } else {
+            return false;
+         }
+      } 
+
+   },
+
    //fires when piece hits bottom or another piece
    touchDown : function(){
       console.log('touchdown'); 
@@ -354,7 +388,6 @@ var tetris = {
    },
 
    renderWaiting : function(){
-      // TODO redo this so that the color doesn't go away from the last piece
       var pieceConcat = jQuery.map(this.waitingPiece[0], function(a){
          return a;
       });
@@ -372,9 +405,14 @@ var tetris = {
    },
 
    render : function(){
-      var pieceConcat = jQuery.map(this.playPiece[0], function(a){
-         return a;
-      });
+      var flatPiece = [];
+      var length = this.playPiece[0].length - 1;
+
+      // makes single array out of piece
+      for (var i = 0; i <= length; i++) {
+         flatPiece = flatPiece.concat(this.playPiece[0][i]);
+      }
+
       var board = this.board;
       var that = this;
 
@@ -382,13 +420,13 @@ var tetris = {
          if (board[index] == 1){
             return;
          } 
-         if (pieceConcat[index] == 1){
+         if (flatPiece[index] == 1){
             $(this).css('backgroundColor', '#' + that.playPiece.color);
          } 
-         if (board[index] === 0 && pieceConcat[index] === 0) {
+         if (board[index] === 0 && flatPiece[index] === 0) {
             $(this).css('backgroundColor', '#aaa');
          }
-         $(this).html(pieceConcat[index]);
+         $(this).html(flatPiece[index]);
       });
    }
 } // end of object
