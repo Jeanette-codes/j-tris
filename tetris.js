@@ -1,4 +1,6 @@
-
+//TODO make is so piece can still move down if colliding with another piece.  
+//TODO when moving left or right sometimes dropped pices dissapear.
+//might be rendering issue, but check the array of each piece as it goes down.
 
 var tetris = {
 
@@ -188,10 +190,6 @@ var tetris = {
       this.renderWaiting();
       this.render();
       var that = this;
-      //console.log(this.pieces.z()[0]);
-      //console.log(this.createPiece()[0]);
-      //console.log(this.playPiece[0]);
-
 
       //makes setInterval scope the same as tetris object
       this.time = window.setInterval($.proxy(this.gameLoop, this), 500);    
@@ -200,18 +198,21 @@ var tetris = {
    gameLoop : function(){
       var that = this;
       document.onkeydown = function(e) {
-         if (that.wallHit() === false){
-            if (e.keyCode === 37) {
-               console.log('move left :',that.playPiece[0]);
+         if (e.keyCode === 37) {
+            if (that.wallHit("left") === false){
                that.moveLeft();
+            } else {
+               console.log('wall hit');
             }
-            if (e.keyCode === 39) {
-               console.log(that.playPiece[0]);
+         } 
+
+         if (e.keyCode === 39) {
+            if (that.wallHit("right") === false){
                that.moveRight();
+            } else {
+               console.log('wall hit');
             }
-         } else {
-            console.log('wall hit');
-         }
+         } 
       }
       if (this.collisionTest() === false){
          this.moveDown();
@@ -269,11 +270,11 @@ var tetris = {
       console.log('move right');
       var pieceLength = this.playPiece[0].length - 1;
       var pieceEnd = pieceLength - 4; 
-      var nX;
+      console.log(this.playPiece.name);
 
       //moves array over to right one
       for (var y = pieceLength; y >= pieceEnd; y--) {
-         for (var x = 10; x >= 0; x--) {
+         for (var x = 8; x >= 0; x--) {
             if (this.playPiece[0][y][x] === 1) {
                this.playPiece[0][y][x] = 0;
                this.playPiece[0][y][x + 1] = 1;
@@ -338,16 +339,18 @@ var tetris = {
       } 
    },
 
-   wallHit : function() {
+   wallHit : function(direction) {
       var coords = this.coords();
-      for (var c = 0; c <= 8; c = c + 2) {
-         if (coords[c] === 0 || coords[c] === 8) {
+      console.log('coords: ', coords);
+      for (var c = 0; c < 8; c += 2) {
+         console.log(coords[c]);
+         if (coords[c] === 0 && direction === "left") {
             return true;
-         } else {
-            return false;
-         }
-      } 
-
+         } else if (coords[c] === 9 && direction === "right") {
+            return true;
+         }        
+      }
+      return false;
    },
 
    //fires when piece hits bottom or another piece
