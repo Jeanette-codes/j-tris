@@ -193,10 +193,10 @@ var tetris = {
       this.playPiece = this.createPiece();
       this.renderWaiting();
       this.render();
-      this.controls();
+      //this.controls();
 
       //makes setInterval scope the same as tetris object
-      //this.controlTimer = window.setInterval($.proxy(this.controls, this), 0);    
+      this.controlTimer = window.setInterval($.proxy(this.controls, this), 33);    
       this.time = window.setInterval($.proxy(this.gameLoop, this), 100);    
    },
 
@@ -205,8 +205,8 @@ var tetris = {
       var domBlocks = $(blocks);
       var domBlocksLength = domBlocks.length;
       var domArray = [];
-      for (var i = 0; i < domBlocksLength; i = i + 10) {
-         domArray.push(domBlocks.slice(i,i + 10));
+      for (var i = 0; i < domBlocksLength; i = i + 12) {
+         domArray.push(domBlocks.slice(i,i + 12));
       }
       return domArray;
    },
@@ -266,7 +266,6 @@ var tetris = {
    },
 
    moveDown : function(){
-      console.log('moveDown--------------');
       var space = [[0,0,0,0,0,0,0,0,0,0,0,0]];
       for (var i = 0; i < 4; i++) {
          this.playPiece[i].unshift.apply(this.playPiece[i], space);
@@ -372,6 +371,8 @@ var tetris = {
    //fires when piece hits bottom or another piece
    touchDown : function(){
       console.log('touchdown'); 
+      window.clearInterval(this.controlTimer);
+      console.log(this.controlTimer);
       this.loadBoard();
       this.playPiece = this.waitingPiece;
       this.waitingPiece = this.createPiece();
@@ -393,6 +394,7 @@ var tetris = {
             if (this.playPiece[0][y][x] === 1){
                this.board[y][x] = 1;
             }
+            $(this.dom[y][x]).html(this.board[y][x]);
          }
       }
    },
@@ -416,14 +418,14 @@ var tetris = {
 
       // iterate over entire board
       for (var y = 0; y <= piecelength; y++){
-         for (var x = 1; x <= 10; x++) {
+         for (var x = 0; x <= 10; x++) {
             if (this.board[y][x] === 0) {
                if (this.playPiece[0][y][x] === 1){
-                  $(this.dom[y][x-1]).css('backgroundColor', '#' + this.playPiece.color);
+                  $(this.dom[y][x]).css('backgroundColor', '#' + this.playPiece.color);
                   //$(this.dom[y][x-1]).html('1');
                }
                if (this.board[y][x] === 0 && this.playPiece[0][y][x] === 0) {
-                  $(this.dom[y][x-1]).css('backgroundColor', '#aaa');
+                  $(this.dom[y][x]).css('backgroundColor', '#aaa');
                   //$(this.dom[y][x-1]).html('0');
                }
             }
