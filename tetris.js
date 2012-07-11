@@ -193,11 +193,16 @@ var tetris = {
       this.playPiece = this.createPiece();
       this.renderWaiting();
       this.render();
-      //this.controls();
+      var that = this;
+      //$.proxy(this.controls(), this)
 
-      //makes setInterval scope the same as tetris object
-      this.controlTimer = window.setInterval($.proxy(this.controls, this), 33);    
-      this.time = window.setInterval($.proxy(this.gameLoop, this), 100);    
+      //event listener for key presses
+      window.addEventListener('keydown', function(event) { that.key.onKeydown(event); }, false);
+      window.addEventListener('keyup', function(event) { that.key.onKeyup(event); }, false);
+
+      //controls game loop and key control timers 
+      this.controlTimer = window.setInterval($.proxy(this.controls, this), 100);    
+      this.time = window.setInterval($.proxy(this.gameLoop, this), 500);    
    },
 
    // makes the blocks into an array of great justice
@@ -217,32 +222,73 @@ var tetris = {
       } 
    },
 
-   controls : function() {
-      var that = this;
-      document.onkeydown = function(e) {
-         if (e.keyCode === 37) {
-            if (that.collisionTest("left") === false) {
-               that.moveLeft();
-            } else {
-               console.log('left hit');
-            }
-         } 
+   //used to store multiple key presses
+   key : {
 
-         if (e.keyCode === 39) {
-            if (that.collisionTest("right") === false) {
-               that.moveRight();
-            } else {
-               console.log('right hit');
-            }
-         } 
-         if (e.keyCode === 65) {
-            if (that.collisionTest("rRotate") === false) {
-               that.rotate("rRotate");
-            } else {
-               console.log('rotate hit');
-            }
+      // stores the key code and whether it's true
+      pressed: {},
+
+      left : 37,
+      up : 38,
+      right : 39,
+      down : 40,
+
+      isDown: function(keyCode) {
+         return this.pressed[keyCode];
+      },
+
+      onKeydown: function(event) {
+         this.pressed[event.keyCode] = true;
+      },
+
+      onKeyup: function(event) {
+         delete this.pressed[event.keyCode];
+      }
+   },
+   
+
+   controls : function() {
+      if (this.key.isDown(this.key.left)) {
+         if (this.collisionTest("left") === false) {
+            this.moveLeft();
          }
       }
+      if (this.key.isDown(this.key.right)) {
+         if (this.collisionTest("right") === false) {
+            this.moveRight();
+         }
+      }
+      if (this.key.isDown(this.key.up)) {
+         console.log('pressed');
+      }
+      if (this.key.isDown(this.key.down)) {
+         console.log('pressed');
+      }
+      //var that = this;
+      //document.onkeydown = function(e) {
+         //if (e.keyCode === 37) {
+            //if (that.collisionTest("left") === false) {
+               //that.moveLeft();
+            //} else {
+               //console.log('left hit');
+            //}
+         //} 
+
+         //if (e.keyCode === 39) {
+            //if (that.collisionTest("right") === false) {
+               //that.moveRight();
+            //} else {
+               //console.log('right hit');
+            //}
+         //} 
+         //if (e.keyCode === 65) {
+            //if (that.collisionTest("rRotate") === false) {
+               //that.rotate("rRotate");
+            //} else {
+               //console.log('rotate hit');
+            //}
+         //}
+      //}
    },
 
 
@@ -371,8 +417,6 @@ var tetris = {
    //fires when piece hits bottom or another piece
    touchDown : function(){
       console.log('touchdown'); 
-      window.clearInterval(this.controlTimer);
-      console.log(this.controlTimer);
       this.loadBoard();
       this.playPiece = this.waitingPiece;
       this.waitingPiece = this.createPiece();
