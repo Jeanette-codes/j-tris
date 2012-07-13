@@ -1,4 +1,10 @@
-//TODO sync up the board with the piece somehow
+//TODO: line scoring system
+//TODO: use request animation frame
+//TODO: refactor movedown so I don't have to use such a big array
+//TODO: refactor pieces to be 4x4 and then inject them into playPiece
+//TODO: add hard drop
+//TODO: optimize as much as possible
+
 var tetris = {
 
    randomColor : function(){
@@ -194,15 +200,12 @@ var tetris = {
       this.renderWaiting();
       this.render();
       var that = this;
-      //$.proxy(this.controls(), this)
-
-      //event listener for key presses
-      window.addEventListener('keydown', function(event) { that.key.onKeydown(event); }, false);
-      window.addEventListener('keyup', function(event) { that.key.onKeyup(event); }, false);
 
       //controls game loop and key control timers 
-      this.controlTimer = window.setInterval($.proxy(this.controls, this), 100);    
-      this.time = window.setInterval($.proxy(this.gameLoop, this), 500);    
+      //this.controlTimer = window.setInterval($.proxy(this.controls, this), 100);    
+      this.time = window.setInterval($.proxy(this.gameLoop, this), 200);    
+      $(window).on('keydown', $.proxy(this.controls, this));
+      //i$(window).off('keydown');
    },
 
    // makes the blocks into an array of great justice
@@ -222,73 +225,30 @@ var tetris = {
       } 
    },
 
-   //used to store multiple key presses
-   key : {
+   controls : function(e) {
+      console.log('code', e.charCode, e.keyCode);
+         if (e.keyCode === 37) {
+            if (this.collisionTest("left") === false) {
+               this.moveLeft();
+            } else {
+               console.log('left hit');
+            }
+         } 
 
-      // stores the key code and whether it's true
-      pressed: {},
-
-      left : 37,
-      up : 38,
-      right : 39,
-      down : 40,
-
-      isDown: function(keyCode) {
-         return this.pressed[keyCode];
-      },
-
-      onKeydown: function(event) {
-         this.pressed[event.keyCode] = true;
-      },
-
-      onKeyup: function(event) {
-         delete this.pressed[event.keyCode];
-      }
-   },
-   
-
-   controls : function() {
-      if (this.key.isDown(this.key.left)) {
-         if (this.collisionTest("left") === false) {
-            this.moveLeft();
+         if (e.keyCode === 39) {
+            if (this.collisionTest("right") === false) {
+               this.moveRight();
+            } else {
+               console.log('right hit');
+            }
+         } 
+         if (e.keyCode === 65) {
+            if (this.collisionTest("rRotate") === false) {
+               this.rotate("rRotate");
+            } else {
+               console.log('rotate hit');
+            }
          }
-      }
-      if (this.key.isDown(this.key.right)) {
-         if (this.collisionTest("right") === false) {
-            this.moveRight();
-         }
-      }
-      if (this.key.isDown(this.key.up)) {
-         console.log('pressed');
-      }
-      if (this.key.isDown(this.key.down)) {
-         console.log('pressed');
-      }
-      //var that = this;
-      //document.onkeydown = function(e) {
-         //if (e.keyCode === 37) {
-            //if (that.collisionTest("left") === false) {
-               //that.moveLeft();
-            //} else {
-               //console.log('left hit');
-            //}
-         //} 
-
-         //if (e.keyCode === 39) {
-            //if (that.collisionTest("right") === false) {
-               //that.moveRight();
-            //} else {
-               //console.log('right hit');
-            //}
-         //} 
-         //if (e.keyCode === 65) {
-            //if (that.collisionTest("rRotate") === false) {
-               //that.rotate("rRotate");
-            //} else {
-               //console.log('rotate hit');
-            //}
-         //}
-      //}
    },
 
 
@@ -335,6 +295,7 @@ var tetris = {
             }
          }
       }
+      this.render();
    },
 
    moveRight : function(){
@@ -353,6 +314,7 @@ var tetris = {
             }
          }
       }
+      this.render();
    },
 
    rotate : function(direction) {
@@ -361,6 +323,7 @@ var tetris = {
          var popped = this.playPiece.pop();
          this.playPiece.unshift(popped);
       }
+      this.render();
    },
 
    //check every place with a 1 against certain conditions
@@ -448,9 +411,9 @@ var tetris = {
       for (var y = 0; y < piecelength; y++){
          for (var x = 1; x < 10; x++) {
             if (this.waitingPiece[0][y][x] === 1){
-               $(this.waitDom[y][x - 4]).css('backgroundColor', '#' + this.waitingPiece.color);
+               $(this.waitDom[y][x - 2]).css('backgroundColor', '#' + this.waitingPiece.color);
             } else {
-               $(this.waitDom[y][x - 4]).css('backgroundColor', '#aaa'); 
+               $(this.waitDom[y][x - 2]).css('backgroundColor', '#aaa'); 
             }
 
          }
