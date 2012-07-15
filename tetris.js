@@ -1,8 +1,7 @@
-//TODO: line scoring system
 //TODO: use request animation frame
-//TODO: refactor movedown so I don't have to use such a big array
-//TODO: refactor pieces to be 4x4 and then inject them into playPiece
-//TODO: add hard drop
+//TODO: output lines with a this.lineNum
+//TODO: score system
+//TODO: level system
 //TODO: optimize as much as possible
 
 var tetris = {
@@ -166,9 +165,6 @@ var tetris = {
       }
    },
 
-   //this has padding for when a piece lays flat
-   //might want to change how pieces travel down so I 
-   //don't need the padding
    board : [
          [1,0,0,0,0,0,0,0,0,0,0,1],
          [1,0,0,0,0,0,0,0,0,0,0,1],
@@ -191,8 +187,8 @@ var tetris = {
          [1,1,1,1,1,1,1,1,1,1,1,1]],
 
    init : function(){
-      this.dom = this.domBuild('.play_board .block');
-      this.waitDom = this.domBuild('.onDeck_board .block');
+      this.dom = this.domBuild('.play_board .block', 12);
+      this.waitDom = this.domBuild('.onDeck_board .block', 4);
       this.waitingPiece = this.createPiece();
       this.playPiece = this.createPiece();
       this.renderWaiting();
@@ -200,17 +196,17 @@ var tetris = {
       var that = this;
 
       //controls game loop and key control timers 
-      this.time = window.setInterval($.proxy(this.gameLoop, this), 200);    
+      this.time = window.setInterval($.proxy(this.gameLoop, this), 600);    
       $(window).on('keydown', $.proxy(this.controls, this));
    },
 
    // makes the blocks into an array of great justice
-   domBuild : function(blocks) {
+   domBuild : function(blocks, xLength) {
       var domBlocks = $(blocks);
       var domBlocksLength = domBlocks.length;
       var domArray = [];
-      for (var i = 0; i < domBlocksLength; i = i + 12) {
-         domArray.push(domBlocks.slice(i,i + 12));
+      for (var i = 0; i < domBlocksLength; i = i + xLength) {
+         domArray.push(domBlocks.slice(i,i + xLength));
       }
       return domArray;
    },
@@ -222,29 +218,38 @@ var tetris = {
    },
 
    controls : function(e) {
-      console.log('code', e.charCode, e.keyCode);
-         if (e.keyCode === 37) {
-            if (this.collisionTest("left") === false) {
-               this.moveLeft();
-            } else {
-               console.log('left hit');
-            }
+      //console.log('code', e.charCode, e.keyCode);
+      if (e.keyCode === 37) {
+         if (this.collisionTest("left") === false) {
+            this.moveLeft();
          } 
+      } 
 
-         if (e.keyCode === 39) {
-            if (this.collisionTest("right") === false) {
-               this.moveRight();
-            } else {
-               console.log('right hit');
-            }
+      if (e.keyCode === 39) {
+         if (this.collisionTest("right") === false) {
+            this.moveRight();
          } 
-         if (e.keyCode === 65) {
-            if (this.collisionTest("rRotate") === false) {
-               this.rotate("rRotate");
-            } else {
-               console.log('rotate hit');
-            }
+      } 
+      if (e.keyCode === 65) {
+         if (this.collisionTest("lRotate") === false) {
+            this.rotate("lRotate");
          }
+      }
+      if (e.keyCode === 83) {
+         if (this.collisionTest("rRotate") === false) {
+            this.rotate("rRotate");
+         } 
+      }
+      if (e.keyCode === 40) {
+         if (this.collisionTest("down") === false) {
+            this.moveDown();
+         }
+      }
+      if (e.keyCode === 32) {
+         if (this.collisionTest("down") === false) {
+            this.hardDrop()
+         }
+      }
    },
 
 
@@ -359,8 +364,7 @@ var tetris = {
    },
 
    moveDown : function(){
-      var piecelength = this.playPiece[0].length - 1;
-      console.log(piecelength);
+      var piecelength = this.playPiece[0].length - 2;
 
       for (var r = 0; r < 4; r++) {
          for (var y = piecelength; y >= 0; y--) {
@@ -376,7 +380,6 @@ var tetris = {
    },
 
    moveLeft : function(){
-      console.log('move left');
       var piecelength = this.playPiece[0].length - 1;
 
       //moves array over to left one
@@ -394,7 +397,6 @@ var tetris = {
    },
 
    moveRight : function(){
-      console.log('move right');
       var pieceLength = this.playPiece[0].length - 1;
 
       //moves array over to right one
@@ -412,12 +414,27 @@ var tetris = {
    },
 
    rotate : function(direction) {
-      console.log("rotated");
-      if (direction === "rRotate") {
+
+      // takes last array and puts it at the beginning 
+      if (direction === "lRotate") {
          var popped = this.playPiece.pop();
          this.playPiece.unshift(popped);
       }
+
+      //takes first array and puts it on the end
+      if (direction === "rRotate") {
+         var shifted = this.playPiece.shift();
+         this.playPiece.push(shifted);
+      }
+
       this.render();
+   },
+
+   hardDrop : function() {
+      if (this.collisionTest("down") === false) {
+         this.moveDown();
+         this.hardDrop();
+      } 
    },
 
    //check every place with a 1 against certain conditions
@@ -428,35 +445,39 @@ var tetris = {
       for (var y = pieceLength; y >= 0; y--) {
          for (var x = 0; x <= 11; x++) {
 
-            if (direction === 'rRotate') { 
+            if (direction === 'lRotate') { 
                if (this.playPiece[3][y][x] === 1 && this.board[y][x] === 1) {
-                  console.log('rotate hit');
                   return true;
                }
             }
 
-            if (this.playPiece[0][y][x] === 1) {
-
-               // if piece touches down on another piece 
-               if (direction === "down") {
-                  if (this.board[y + 1][x] === 1) {
-                     this.touchDown();
-                     return true;
-                  }
-               }
-
-               // if piece hits another piece on the sides
-               if (direction === "left") {
-                 if (this.board[y][x - 1] === 1) { 
-                     return true;
-                  }
-               }
-               if (direction === "right") {
-                 if (this.board[y][x + 1] === 1) { 
-                     return true;
-                  }
+            if (direction === 'rRotate') { 
+               if (this.playPiece[1][y][x] === 1 && this.board[y][x] === 1) {
+                  return true;
                }
             }
+
+            // if piece touches down on another piece 
+            if (direction === "down" && this.playPiece[0][y][x] === 1) {
+               if (this.board[y + 1][x] === 1) {
+                  this.touchDown();
+                  return true;
+               }
+            }
+
+            // if piece hits another piece on the sides
+            if (direction === "left" && this.playPiece[0][y][x] === 1) {
+               if (this.board[y][x - 1] === 1) { 
+                  return true;
+               }
+            }
+
+            if (direction === "right" && this.playPiece[0][y][x] === 1) {
+               if (this.board[y][x + 1] === 1) { 
+                  return true;
+               }
+            }
+            
 
             if (direction === 'init' && this.playPiece[0][y][x] === 1) {
                if (this.board[y][x] === 1) {
@@ -472,7 +493,6 @@ var tetris = {
 
    //fires when piece hits bottom or another piece
    touchDown : function(){
-      console.log('touchdown'); 
       this.loadBoard();
       this.playPiece = this.waitingPiece;
       this.waitingPiece = this.createPiece();
@@ -480,12 +500,75 @@ var tetris = {
          this.gameOver();
       }
       this.render();
+      this.lineFind();
       this.renderWaiting();
+   },
+
+   lineFind : function() {
+      var xCount = 0;
+      var lines = 0;
+      var linePos = [];
+
+      for (var y = 17; y >= 0; y--) {
+         xCount = 0;
+         for (var x = 1; x <= 9; x++) {
+             if (this.board[y][x] === 1){
+               xCount++;
+               console.log('y: ',y,'xCount: ',xCount);
+               //fix this
+               if (xCount === 9) {
+                  lines++;
+                  xCount = 0;
+                  linePos.push(y);
+               }
+            }
+         }
+      }
+      console.log('lines: ',lines,'line y position ', linePos);
+      if (lines > 0) {
+         this.lineRemove(linePos);
+         lines = 0;
+         linePos = [];
+      }
+   },
+
+   lineRemove : function(linePos) {
+      var length = linePos.length - 1;
+      var holdColor;
+
+      //y = row where line is
+      for (var y = length; y >= 0; y--) {
+         for (var x = 1; x <= 10; x++) {
+            $(this.dom[linePos[y]][x]).css('backgroundColor', '#fff');
+            this.board[linePos[y]][x] = 0;
+         }
+
+         //moves everything from line row down 1 
+         for (var line = linePos[y] - 1; line >= 0; line--) {
+            for (var x = 1; x <= 10; x++) {
+               if (this.board[line][x] === 1) {
+                  var holdColor = $(this.dom[line][x]).css('backgroundColor');
+
+                  this.board[line + 1][x] = 1;
+                  this.board[line][x] = 0;
+                  $(this.dom[line + 1][x]).css('backgroundColor', holdColor);
+                  $(this.dom[line][x]).css('backgroundColor', '#fff');
+               }
+            }
+         }
+
+      }
+      //for debugging
+      //for (var y = 0; y <= piecelength; y++){
+         //for (var x = 0; x <= 11; x++) {
+            //$(this.dom[y][x]).html(this.board[y][x]);
+         //}
+      //}
+
    },
 
    // moves piece array into board array on touchdown
    loadBoard : function(){
-
       var piecelength = this.playPiece[0].length - 1;
 
       // iterate over entire board
@@ -494,27 +577,28 @@ var tetris = {
             if (this.playPiece[0][y][x] === 1){
                this.board[y][x] = 1;
             }
-            //$(this.dom[y][x]).html(this.board[y][x]);
          }
       }
-   },
-
-   //what?
-   //make this just call the name and render according to name and pull color from waitingPiece
-   renderWaiting : function(){
-      //var piecelength = this.waitingPiece[0][0].length - 5;
-      //console.log(piecelength);
-      //for (var y = 0; y < piecelength; y++){
-         //for (var x = 1; x < 10; x++) {
-            //console.log(y,x);
-            //if (this.waitingPiece[0][y][x] === 1){
-               //$(this.waitDom[y][x]).css('backgroundColor', '#' + this.waitingPiece.color);
-            //} else {
-               //$(this.waitDom[y][x]).css('backgroundColor', '#aaa'); 
-            //}
-
+      //for debugging
+      //for (var y = 0; y <= piecelength; y++){
+         //for (var x = 0; x <= 11; x++) {
+            //$(this.dom[y][x]).html(this.board[y][x]);
          //}
       //}
+   },
+
+   renderWaiting : function(){
+      var piece = this.pieces[this.waitingPiece.name[0]]();
+
+      for (var y = 0; y <=3; y++) {
+         for (var x = 0; x <= 3; x++) {
+            if (piece[0][y][x] === 1) {
+               $(this.waitDom[y][x]).css('backgroundColor', '#' + this.waitingPiece.color);
+            } else {
+               $(this.waitDom[y][x]).css('backgroundColor', '#fff'); 
+            }
+         }
+      }
    },
 
    render : function(){
@@ -529,7 +613,7 @@ var tetris = {
                   //$(this.dom[y][x-1]).html('1');
                }
                if (this.board[y][x] === 0 && this.playPiece[0][y][x] === 0) {
-                  $(this.dom[y][x]).css('backgroundColor', '#aaa');
+                  $(this.dom[y][x]).css('backgroundColor', '#fff');
                   //$(this.dom[y][x-1]).html('0');
                }
             }

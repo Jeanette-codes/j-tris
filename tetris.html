@@ -1,374 +1,356 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-  <title>J-tris</title>
-</head>
-<body>
+   <head>
+      <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+      <title>J-tris</title>
+   </head>
+   <body>
 
-<style>
-	.container {
-		width:390px;
-		margin: 0px auto 0px auto;
-	}
-	
-	.play_board {
-		width: 144px;
-		border: 1px solid black;
-		margin: 10px auto 0px auto;
-		float: left;
-      font-size: 9px;
-      text-align: center;
-	}
-	
-	.onDeck_board {
-		width: 120px;
-		height: 48px;
-		float: left;
-		border: 1px solid black;
-		margin: 10px 0px 0px 10px;
-	}
-	
-	.block { 
-		width: 10px;
-		height: 10px;
-		background-color: #aaaaaa;
-		float: left;
-		border: 1px solid #cccccc;
-	}
-	
-	.play_board .mover {
-		background-color: red;
-	}
-	
-</style>	
-	
-<!-- 10col by 18rows -->
-<div class="container">	
-	<div class="play_board">
-		
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-					
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-					
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-                <!--bottom 1's-->
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	</div>
-	
-	<div class="onDeck_board">
-		
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-			
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-		<div class="block"></div>
-	
-      <div class="piece_name"></div>
-      <div class="piece_color"></div>   
-</div>
-  
-	
-</div>
-<script src="jquery-1.7.2.min.js"></script>
-<script src="tetris.js" type="text/javascript" charset="utf-8"></script>
-</body>
+      <style>
+         .container {
+            width:390px;
+            margin: 0px auto 0px auto;
+         }
+
+         .play_board {
+            width: 144px;
+            border-top: 10px solid #ccc;
+            margin: 10px auto 0px auto;
+            float: left;
+            font-size: 9px;
+            text-align: center;
+         }
+
+         .onDeck_board {
+            width: 48px;
+            height: 48px;
+            float: left;
+            margin: 10px 0px 0px 10px;
+         }
+
+         .onDeck_board .block {
+            background-color: #fff;
+            border: 1px solid #fff;
+         }
+
+         .block { 
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            float: left;
+            border: 1px solid #fff;
+         }
+
+         .block.e {
+            background-color: #ccc;
+            border: 1px solid #ccc;
+         }
+
+         .play_board .mover {
+            background-color: red;
+         }
+
+      </style>	
+
+      <!-- 10col by 18rows -->
+      <div class="container">	
+         <div class="play_board">
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+
+            <div class="block e"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block e"></div>
+
+            <!--bottom 1's-->
+            <div class="block e"></div>
+            <div class="block e"></div>
+            <div class="block e"></div>
+            <div class="block e"></div>
+            <div class="block e"></div>
+            <div class="block e"></div>
+            <div class="block e"></div>
+            <div class="block e"></div>
+            <div class="block e"></div>
+            <div class="block e"></div>
+            <div class="block e"></div>
+            <div class="block e"></div>
+         </div>
+
+         <div class="onDeck_board">
+
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+
+            <div class="piece_name"></div>
+            <div class="piece_color"></div>   
+         </div>
+
+
+      </div>
+      <script src="jquery-1.7.2.min.js"></script>
+      <script src="tetris.js" type="text/javascript" charset="utf-8"></script>
+   </body>
 </html>
