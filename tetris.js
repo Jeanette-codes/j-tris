@@ -379,6 +379,7 @@ var tetris = {
       this.render();
    },
 
+   //TODO make this only move left that rotate if it can be moved left
    moveLeft : function(){
       var piecelength = this.playPiece[0].length - 1;
 
