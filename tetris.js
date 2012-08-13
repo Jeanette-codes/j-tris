@@ -220,13 +220,13 @@ var tetris = {
    controls : function(e) {
       //console.log('code', e.charCode, e.keyCode);
       if (e.keyCode === 37) {
-         if (this.collisionTest("left") === false) {
+         if (this.collisionTest("left", 0) === false) {
             this.moveLeft();
          } 
       } 
 
       if (e.keyCode === 39) {
-         if (this.collisionTest("right") === false) {
+         if (this.collisionTest("right", 0) === false) {
             this.moveRight();
          } 
       } 
@@ -385,11 +385,13 @@ var tetris = {
 
       //moves array over to left one
       for (var r = 0; r < 4; r++) {
-         for (var y = piecelength; y >= 0; y--) {
-            for (var x = 0; x <= 11; x++) {
-               if (this.playPiece[r][y][x] == 1) {
-                  this.playPiece[r][y][x - 1] = 1;
-                  this.playPiece[r][y][x] = 0;
+         if (this.collisionTest('left', r) === false) {
+            for (var y = piecelength; y >= 0; y--) {
+               for (var x = 0; x <= 11; x++) {
+                  if (this.playPiece[r][y][x] == 1) {
+                     this.playPiece[r][y][x - 1] = 1;
+                     this.playPiece[r][y][x] = 0;
+                  }
                }
             }
          }
@@ -402,11 +404,13 @@ var tetris = {
 
       //moves array over to right one
       for (var r = 0; r < 4; r++) {
-         for (var y = pieceLength; y >= 0; y--) {
-            for (var x = 13; x >= 0; x--) {
-               if (this.playPiece[r][y][x] === 1) {
-                  this.playPiece[r][y][x] = 0;
-                  this.playPiece[r][y][x + 1] = 1;
+         if (this.collisionTest('right', r) === false) {
+            for (var y = pieceLength; y >= 0; y--) {
+               for (var x = 13; x >= 0; x--) {
+                  if (this.playPiece[r][y][x] === 1) {
+                     this.playPiece[r][y][x] = 0;
+                     this.playPiece[r][y][x + 1] = 1;
+                  }
                }
             }
          }
@@ -439,7 +443,7 @@ var tetris = {
    },
 
    //check every place with a 1 against certain conditions
-   collisionTest : function(direction){
+   collisionTest : function(direction, r){
       var pieceLength = this.playPiece[0].length - 1;
 
       //builds array for piece coordinates
@@ -467,19 +471,19 @@ var tetris = {
             }
 
             // if piece hits another piece on the sides
-            if (direction === "left" && this.playPiece[0][y][x] === 1) {
-               if (this.board[y][x - 1] === 1) { 
+            if (direction === "left") { 
+               console.log(r);
+               if (this.playPiece[r][y][x] === 1 && this.board[y][x - 1] === 1) { 
                   return true;
                }
             }
 
-            if (direction === "right" && this.playPiece[0][y][x] === 1) {
-               if (this.board[y][x + 1] === 1) { 
+            if (direction === "right") {
+               if (this.playPiece[r][y][x] === 1 && this.board[y][x + 1] === 1) { 
                   return true;
                }
             }
             
-
             if (direction === 'init' && this.playPiece[0][y][x] === 1) {
                if (this.board[y][x] === 1) {
                   return true;
