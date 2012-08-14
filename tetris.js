@@ -4,6 +4,34 @@
 //TODO: level system
 //TODO: optimize as much as possible
 
+// request animation frame shim from
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+(function() {
+   var lastTime = 0;
+   var vendors = ['ms', 'moz', 'webkit', 'o'];
+   for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+      window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+      window.cancelAnimationFrame = 
+   window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+   }
+
+   if (!window.requestAnimationFrame)
+   window.requestAnimationFrame = function(callback, element) {
+      var currTime = new Date().getTime();
+      var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+      var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+         timeToCall);
+      lastTime = currTime + timeToCall;
+      return id;
+   };
+
+if (!window.cancelAnimationFrame)
+   window.cancelAnimationFrame = function(id) {
+      clearTimeout(id);
+   };
+}());
+
+
 var tetris = {
 
    randomColor : function(){
@@ -191,12 +219,16 @@ var tetris = {
       this.waitDom = this.domBuild('.onDeck_board .block', 4);
       this.waitingPiece = this.createPiece();
       this.playPiece = this.createPiece();
+      this.lineNum = 0;
+      this.tetrisNum = 0;
+      this.timeOffset = 35;
+      this.counter = 0;
       this.renderWaiting();
       this.render();
       var that = this;
 
       //controls game loop and key control timers 
-      this.time = window.setInterval($.proxy(this.gameLoop, this), 600);    
+      this.time = window.setInterval($.proxy(this.gameLoop, this), 1000 / 60);    
       $(window).on('keydown', $.proxy(this.controls, this));
    },
 
@@ -212,9 +244,13 @@ var tetris = {
    },
 
    gameLoop : function(){
-      if (this.collisionTest("down") === false) {
-         this.moveDown();
-      } 
+      this.counter++;
+      if (this.counter === this.timeOffset) {
+         if (this.collisionTest("down") === false) {
+            this.moveDown();
+         } 
+         this.counter = 0;
+      }
    },
 
    controls : function(e) {
@@ -472,7 +508,6 @@ var tetris = {
 
             // if piece hits another piece on the sides
             if (direction === "left") { 
-               console.log(r);
                if (this.playPiece[r][y][x] === 1 && this.board[y][x - 1] === 1) { 
                   return true;
                }
@@ -531,6 +566,12 @@ var tetris = {
       }
       console.log('lines: ',lines,'line y position ', linePos);
       if (lines > 0) {
+         this.lineNum = this.lineNum + lines;
+         $('.lines').html('Lines: ' + this.lineNum);
+         if (lines === 4) {
+            this.tetrisNum++;
+            $('.tetris').html('Tetris: ' + this.tetrisNum);
+         }
          this.lineRemove(linePos);
          lines = 0;
          linePos = [];
