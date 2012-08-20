@@ -1,7 +1,4 @@
 //TODO: use request animation frame
-//TODO: output lines with a this.lineNum
-//TODO: score system
-//TODO: level system
 //TODO: optimize as much as possible
 
 // request animation frame shim from
@@ -221,6 +218,7 @@ var tetris = {
       this.playPiece = this.createPiece();
       this.lineNum = 0;
       this.tetrisNum = 0;
+      this.level = 0;
       this.timeOffset = 35;
       this.counter = 0;
       this.renderWaiting();
@@ -564,18 +562,34 @@ var tetris = {
             }
          }
       }
+
+      // TODO abstract out the scoring 
       console.log('lines: ',lines,'line y position ', linePos);
       if (lines > 0) {
          this.lineNum = this.lineNum + lines;
-         $('.lines').html('Lines: ' + this.lineNum);
+         $('.lines').html('Lines: ' + this.lineCounter());
+
          if (lines === 4) {
             this.tetrisNum++;
             $('.tetris').html('Tetris: ' + this.tetrisNum);
          }
+
+         if (this.lineNum >= 10) {
+            this.lineNum = this.lineNum - 10;
+            this.level = this.level + 1;
+            this.timeOffset = this.timeOffset - 1;
+            $('.lines').html('Lines: ' + this.lineCounter());
+            $('.level').html('Level: ' + this.level);
+         }
+
          this.lineRemove(linePos);
          lines = 0;
          linePos = [];
       }
+   },
+
+   lineCounter : function(){
+      return this.level * 10 + this.lineNum;
    },
 
    lineRemove : function(linePos) {
